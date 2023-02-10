@@ -18074,7 +18074,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var forms = function forms(state) {
   var form = document.querySelectorAll('form'),
-      inputs = document.querySelectorAll('input');
+      inputs = document.querySelectorAll('input'),
+      windows = document.querySelectorAll('[data-modal]');
   Object(_checkNumInputs__WEBPACK_IMPORTED_MODULE_5__["default"])('input[name="user_phone"]');
   var messages = {
     loading: 'Подождите, идет загрузка',
@@ -18129,8 +18130,11 @@ var forms = function forms(state) {
         for (var key in state) {
           formData.append(key, state[key]);
         }
+
+        ;
       }
 
+      ;
       postData('assets/server.php', formData).then(function (res) {
         console.log(res);
         statusMessage.textContent = messages.success;
@@ -18140,6 +18144,11 @@ var forms = function forms(state) {
         clearInputs();
         setTimeout(function () {
           statusMessage.remove();
+          windows.forEach(function (item) {
+            item.style.display = 'none';
+          });
+          item.style.display = 'none';
+          document.body.style.overflow = ' ';
         }, 3000);
       });
     });
@@ -18245,12 +18254,15 @@ var modals = function modals() {
     });
   }
 
+  ;
+
   function showModalByTime(modalSelector, modalTime, closeSelector) {
     var modal = document.querySelector(modalSelector),
         close = document.querySelector(closeSelector);
-    setTimeout(function () {
+    var timer = setTimeout(function () {
       modal.style.display = 'block';
       document.body.style.overflow = "hidden";
+      clearTimeout(timer);
     }, modalTime);
     close.addEventListener('click', function () {
       modal.style.display = 'none';

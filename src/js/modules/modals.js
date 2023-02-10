@@ -10,44 +10,45 @@ const modals = () => {
                 if(e.target) {
                     e.preventDefault();
                 };
-
-                windows.forEach(item => {
-                    item.style.display = 'none'
-                });
     
-                modal.style.display = 'block';
+            windows.forEach(item => {
+                item.style.display = 'none';
+            });
+        
+            modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
             });
         });
 
         close.addEventListener('click', () => {
             windows.forEach(item => {
-                item.style.display = 'none'
+                item.style.display = 'none';
             });
-
+            
             modal.style.display = 'none';
             document.body.style.overflow = '';
         });
-
+    
         modal.addEventListener('click', (e) => {
             if(e.target === modal && closeClickOverlay) {
                 windows.forEach(item => {
-                    item.style.display = 'none'
+                    item.style.display = 'none';
                 });
-
+    
                 modal.style.display = 'none';
                 document.body.style.overflow =' ';
             }
         });
-    }
+    };
 
     function showModalByTime(modalSelector, modalTime,  closeSelector) {
         const modal = document.querySelector(modalSelector),
               close = document.querySelector(closeSelector);
 
-        setTimeout(function() {
+        const timer = setTimeout(function() {
             modal.style.display = 'block';
             document.body.style.overflow = "hidden";
+            clearTimeout(timer);
         }, modalTime);
 
         close.addEventListener('click', () => {
@@ -61,7 +62,6 @@ const modals = () => {
                 document.body.style.overflow = '';
             }
         });
-
     }
 
     bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
